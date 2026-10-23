@@ -1,0 +1,16 @@
+/gandalf_node:
+  ros__parameters:
+    input_topic: "/pointcloud"
+    filtered_topic: "/filtered_points"
+    frame_id: "lidar_link"                 # expected frame of the input cloud
+    output_frame_id: "base_link"           # frame of the output when the transform below is applied
+    # Static frame_id -> output_frame_id pose, applied before filtering (p_out = R p_in + t)
+    input_to_output_xyz: [0.0, 0.0, 0.0]   # translation t (m)
+    input_to_output_rpy: [0.0, 0.0, 0.0]   # R = Rz(yaw) Ry(pitch) Rx(roll) (rad); all zeros = identity, skipped (output keeps the input frame)
+    # Passthrough box, in the output frame. An axis is filtered only when down < up.
+    upFilterLimitX: 999.0
+    downFilterLimitX: 0.0
+    upFilterLimitY: 1.0e10
+    downFilterLimitY: -1.0e10
+    upFilterLimitZ: 0.0                   # 0.0 / 0.0 = Z off
+    downFilterLimitZ: 0.0                  
